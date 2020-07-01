@@ -5,18 +5,52 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import (Movies, Actors, setup_db)
+import json
+from auth import AuthError, requires_auth
+
+
 
 ###============================== start my app ================================###
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
     setup_db(app)
-    CORS(app)
+   # CORS(app)
+
+
+    CORS(app, resources={'/': {'origins': '*'}})
+
+###==========================  Sets access control ===========================###
+
+
+    @app.after_request
+    def after_request(response):
+        
+        response.headers.add('Access-Control-Allow-Headers',
+                                'Content-Type,Authorization,true')
+        response.headers.add('Access-Control-Allow-Methods',
+                                'GET,PATCH,POST,DELETE,OPTIONS')
+        return response
+###============================================================================###
+
+
+###============================= home page ====================================###
+
+
+    @app.route('/')
+    def index():
+        return jsonify({'message': 'Casting API'})
+
+
+
+###============================================================================###
+
 
 ###============================= get movies ===================================###
 
     @app.route('/movies' , methods=['GET'])
-    def get_movies():
+    @requires_auth('get:movies')
+    def get_movies(payload):
 
         movies_list = Movies.query.all()
         if len(movies_list) == 0:
@@ -25,7 +59,7 @@ def create_app(test_config=None):
         return jsonify({
             "success": True, 
             "movies": movies
-            }),200
+            }), (200)
 
 
 ###============================================================================###
@@ -33,7 +67,8 @@ def create_app(test_config=None):
 ###============================= get actors ===================================###
 
     @app.route('/actors' , methods=['GET'])
-    def get_actors():
+    @requires_auth('get:actors')
+    def get_actors(token):
 
         actors_list = Actors.query.all()
         if len(actors_list) == 0:
@@ -49,11 +84,37 @@ def create_app(test_config=None):
 
 
 ###============================== post movies =================================###
+    @app.route('/movies/create', methods=['POST'])
+    @requires_auth('post:movies')
+    def post_movie(payload):
 
+        form = request.get_json()
 
+        title = form.get('title')
+        release_date = form.get('release_date')
+
+        if title is None or release_date is None:
+            abort(422)
+
+        try:
+            movie = Movies(
+                title=title,
+                release_date=release_date
+            ).insert()
+
+            all_movies = Movies.query.all()
+            movies = [movie.format() for movie in all_movies]
+
+            return jsonify({
+                'success': True,
+                'movies': movies
+            }), (200)
+        except Exception:
+            abort(422)
+    '''
     @app.route('/movies/create' , methods = ['POST'])
-    #@requires_auth('post:movies')
-    def creat_movie():
+    @requires_auth('post:movies')
+    def creat_movie(token):
         form = request.get_json()
         title =form.get('title')
         release_date = form.get('release_date')
@@ -68,6 +129,7 @@ def create_app(test_config=None):
                     }), 200
         except:
             abort(404)
+            '''
 
 ###=============================================================================###
 
@@ -75,8 +137,8 @@ def create_app(test_config=None):
 
 
     @app.route('/actors/create' , methods = ['POST'])
-    #@requires_auth('post:actors')
-    def creat_actor():
+    @requires_auth('post:actors')
+    def creat_actor(token):
         form = request.get_json()
         name =form.get('name')
         age = form.get('age')
@@ -91,31 +153,30 @@ def create_app(test_config=None):
                     "actors": actor
                     }), 200
         except:
-            abort(404)
+            abort(422)
 
 ###=============================================================================###
 
 ###============================ patch movies ===================================###
 
     @app.route('/movies/<int:movie_id>/edit' , methods = ['PATCH'])
-    #@requires_auth('patch:movies')
-    def patch_movie(movie_id):
+    @requires_auth('patch:movies')
+    def patch_movie(token, movie_id):
         try:
             movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
             if movie is None:
                 abort(404)
-            try:
-                form = request.get_json()
-                movie.title = form.get('title')
-                movie.release_date =form.get('release_date')
-                movie.update()
-                movie.format()
-                return jsonify({
-                    "success": True,
-                    "movies": movie
-                    }) ,200
-            except:
-                abort(422)
+            
+            form = request.get_json()
+            movie.title = form.get('title')
+            movie.release_date =form.get('release_date')
+            movie.update()
+            movie.format()
+            return jsonify({
+                "success": True,
+                "movies": movie
+                }) ,200
+            
         except:
             abort(422)
 
@@ -125,8 +186,8 @@ def create_app(test_config=None):
 ###============================ patch actors ===================================###
 
     @app.route('/actors/<int:actor_id>/edit' , methods = ['PATCH'])
-    #@requires_auth('patch:actors')
-    def patch_actor(actor_id):
+    @requires_auth('patch:actors')
+    def patch_actor(token, actor_id):
         try:
             actor = Actors.query.filter(Actors.id == actor_id).one_or_none()
             if actor is None:
@@ -154,21 +215,18 @@ def create_app(test_config=None):
 
 
     @app.route('/movies/<int:movie_id>' , methods = ['DELETE'])
-    #@requires_auth('delete:movies')
-    def delet_movie(movie_id):
+    @requires_auth('delete:movies')
+    def delet_movie(token, movie_id):
 
         try:
             movie = Movies.query.filter(Movies.id == movie_id).one_or_none()
             if movie is None:
                 abort(404)
-            try:
-                movie.delete()
-                return jsonify({
-                    "success": True,
-                    "delete": movie_id
-                    }) ,200
-            except:
-                abort(422)
+            movie.delete()
+            return jsonify({
+                "success": True,
+                "delete": movie_id
+                }) ,200
         except:
             abort(422)
 
@@ -178,21 +236,18 @@ def create_app(test_config=None):
 
 
     @app.route('/actors/<int:actor_id>' , methods = ['DELETE'])
-    #@requires_auth('delete:movies')
-    def delet_actor(actor_id):
+    @requires_auth('delete:movies')
+    def delet_actor(token, actor_id):
 
         try:
             actor = Actors.query.filter(Actors.id == actor_id).one_or_none()
             if actor is None:
                 abort(404)
-            try:
-                actor.delete()
-                return jsonify({
-                    "success": True,
-                    "delete": actor_id
-                    }) ,200
-            except:
-                abort(422)
+            actor.delete()
+            return jsonify({
+                "success": True,
+                "delete": actor_id
+                }) ,200
         except:
             abort(422)
 
@@ -245,15 +300,26 @@ def create_app(test_config=None):
             }), 400
 
 
-         #@app.errorhandler(AuthError)
-        #def authentification_failed(ex):
-        #return jsonify({
-            #"success": False,
-            #"error": ex.status_code,
-            #"message": get_error_message(ex.error, "authentification fails")
-                      ## # }), ex.status_code
+    # reply with json for 405 error
+    @app.errorhandler(405)
+    def not_allowed(error):
+        return jsonify({
+            "success": False,
+            "Error": 405,
+            "message": 'Method Not allowed'
+        }), 405
+
+    @app.errorhandler(AuthError)
+    def authentification_failed(ex):
+        return jsonify({
+            "success": False,
+            "error": ex.status_code,
+            "message": (ex.error, "authentification fails")         
+           }), ex.status_code
+
 
 ###=============================================================================###
+
 
     return app
 

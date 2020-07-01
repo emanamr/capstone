@@ -5,9 +5,9 @@ from jose import jwt
 from urllib.request import urlopen
 
 
-AUTH0_DOMAIN = ''
+AUTH0_DOMAIN = 'fullstacktest.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = ''
+API_AUDIENCE = 'casting'
 
 ## AuthError Exception
 '''
@@ -25,15 +25,41 @@ class AuthError(Exception):
 
 def get_token_auth_header():
     if 'Authorization' not in request.headers:
-        abort(401)
+        raise AuthError({
+        'success': False,
+        'message': 'JWT not found',
+        'error': 401
+    }, 401)
     auth_header = request.headers['Authorization']
     header_parts = auth_header.split(' ')
     if len(header_parts)!= 2 :
-        abort(401)
+        raise AuthError({
+        'success': False,
+        'message': 'JWT not found',
+        'error': 401
+    }, 401)
     elif header_parts[0].lower() != 'bearer':
-        abort(401)
+        raise AuthError({
+        'success': False,
+        'message': 'JWT not found',
+        'error': 401
+    }, 401)
     return header_parts[1]
 
+'''
+def get_token_auth_header():
+    if "Authorization" in request.headers:
+        auth_header = request.headers["Authorization"]
+        if auth_header:
+            bearer_token = auth_header.split(' ')
+            if bearer_token[0] and bearer_token[0].lower() == "bearer" and bearer_token[1]:
+                return bearer_token[1]
+    raise AuthError({
+        'success': False,
+        'message': 'JWT not found',
+        'error': 401
+    }, 401)
+'''
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
         raise AuthError({
