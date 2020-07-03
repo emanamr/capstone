@@ -57,7 +57,7 @@ Decorators were used to format error responses as JSON objects. Custom @requires
 Tokens
 A token needs to be passed to each endpoint.The following works for all endpoints: The token can be retrieved by following these steps:
 
-Go to: https://fullstacktest.auth0.com/authorize?audience=casting&response_type=token&client_id=wPG5xWD3t0ak2pDZqYC4TCf8EX9cWOp5&redirect_uri=http://127.0.0.1:5000/ 
+Go to: https://fullstacktest.auth0.com/authorize?audience=casting&response_type=token&client_id=CLIENT_ID_uri=http://127.0.0.1:5000/ 
 
 
 GET '/actors'
