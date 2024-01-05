@@ -2,7 +2,7 @@ repo_name: emanamr/capstone
 report_id: 96489651e7b840e9d196a52e7568d071
 version: 0.1
 repo_type: Public
-timestamp: '2024-01-02T09:38:36+00:00'
+timestamp: '2024-01-05T08:12:42+00:00'
 requested_by: emanamr
 provider: github
 branch: master
@@ -17,6 +17,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Templating Languages & Extensions
   image_url: https://img.stackshare.io/service/2303/New_Project__20_.png
+  detection_source_url: https://github.com/emanamr/capstone/blob/master/requirements.txt
   detection_source: requirements.txt
   last_updated_by: eman amr
   last_updated_on: 2020-07-03 22:03:59.000000000 Z
@@ -29,6 +30,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Templating Languages & Extensions
   image_url: https://img.stackshare.io/service/3583/default_43e3ee00dcc48a40f6fcba33551e4f5a99a10537.png
+  detection_source_url: https://github.com/emanamr/capstone
   detection_source: Repo Metadata
 - name: Python
   description: A clear and powerful object-oriented programming language, comparable
@@ -39,6 +41,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/993/pUBY5pVj.png
+  detection_source_url: https://github.com/emanamr/capstone
   detection_source: Repo Metadata
 - name: SQLAlchemy
   description: The Python SQL Toolkit and Object Relational Mapper
@@ -62,6 +65,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/emanamr/capstone
   detection_source: Repo Metadata
 - name: PyPI
   description: A repository of software for the Python programming language
@@ -71,6 +75,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Hosted Package Repository
   image_url: https://img.stackshare.io/service/12572/-RIWgodF_400x400.jpg
+  detection_source_url: https://github.com/emanamr/capstone/blob/master/requirements.txt
   detection_source: requirements.txt
   last_updated_by: eman amr
   last_updated_on: 2020-07-03 22:03:59.000000000 Z
@@ -83,6 +88,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/4631/default_c2062d40130562bdc836c13dbca02d318205a962.png
+  detection_source_url: https://github.com/emanamr/capstone
   detection_source: Repo Metadata
 - name: Flask
   description: A simple framework for building complex web applications
