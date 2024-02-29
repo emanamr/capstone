@@ -3,10 +3,10 @@
 ## Tech Stack
 emanamr/capstone is built on the following main stack:
 
-- [Python](https://www.python.org) – Languages
-- [SQLAlchemy](http://www.sqlalchemy.org/) – Object Relational Mapper (ORM)
 - [Jinja](https://palletsprojects.com/p/jinja/) – Templating Languages & Extensions
 - [Mako](https://github.com/zzzeek/mako) – Templating Languages & Extensions
+- [Python](https://www.python.org) – Languages
+- [SQLAlchemy](http://www.sqlalchemy.org/) – Object Relational Mapper (ORM)
 - [Shell](https://en.wikipedia.org/wiki/Shell_script) – Shells
 
 Full tech stack [here](/techstack.md)
@@ -17,10 +17,10 @@ Full tech stack [here](/techstack.md)
 ## Tech Stack
 emanamr/capstone is built on the following main stack:
 
-- <img width='25' height='25' src='https://img.stackshare.io/service/993/pUBY5pVj.png' alt='Python'/> [Python](https://www.python.org) – Languages
-- <img width='25' height='25' src='https://img.stackshare.io/service/1839/q5uAkmy7.png' alt='SQLAlchemy'/> [SQLAlchemy](http://www.sqlalchemy.org/) – Object Relational Mapper (ORM)
 - <img width='25' height='25' src='https://img.stackshare.io/service/2303/New_Project__20_.png' alt='Jinja'/> [Jinja](https://palletsprojects.com/p/jinja/) – Templating Languages & Extensions
 - <img width='25' height='25' src='https://img.stackshare.io/service/3583/default_43e3ee00dcc48a40f6fcba33551e4f5a99a10537.png' alt='Mako'/> [Mako](https://github.com/zzzeek/mako) – Templating Languages & Extensions
+- <img width='25' height='25' src='https://img.stackshare.io/service/993/pUBY5pVj.png' alt='Python'/> [Python](https://www.python.org) – Languages
+- <img width='25' height='25' src='https://img.stackshare.io/service/1839/q5uAkmy7.png' alt='SQLAlchemy'/> [SQLAlchemy](http://www.sqlalchemy.org/) – Object Relational Mapper (ORM)
 - <img width='25' height='25' src='https://img.stackshare.io/service/4631/default_c2062d40130562bdc836c13dbca02d318205a962.png' alt='Shell'/> [Shell](https://en.wikipedia.org/wiki/Shell_script) – Shells
 
 Full tech stack [here](/techstack.md)
@@ -32,7 +32,7 @@ Full tech stack [here](/techstack.md)
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [emanamr/capstone](https://github.com/emanamr/capstone)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|27<br/>Tools used|01/05/24 <br/>Report generated|
+|27<br/>Tools used|02/29/24 <br/>Report generated|
 |------|------|
 </div>
 
@@ -128,7 +128,7 @@ Full tech stack [here](/techstack.md)
 |[Werkzeug](https://pypi.org/project/Werkzeug)|v1.0.1|07/03/20|eman amr |BSD-3-Clause|[CVE-2023-25577](https://github.com/advisories/GHSA-xg9f-g7g7-2323) (High)<br/>[CVE-2023-23934](https://github.com/advisories/GHSA-px8h-6qxv-m22q) (Low)|
 |[alembic](https://pypi.org/project/alembic)|v1.4.2|07/03/20|eman amr |MIT|N/A|
 |[click](https://pypi.org/project/click)|v7.1.2|07/03/20|eman amr |BSD-3-Clause|N/A|
-|[ecdsa](https://pypi.org/project/ecdsa)|v0.15|07/03/20|eman amr |MIT|N/A|
+|[ecdsa](https://pypi.org/project/ecdsa)|v0.15|07/03/20|eman amr |MIT|[CVE-2024-23342](https://github.com/advisories/GHSA-wj6h-64fc-37mp) (High)|
 |[gunicorn](https://pypi.org/project/gunicorn)|v20.0.4|07/03/20|eman amr |MIT|N/A|
 |[itsdangerous](https://pypi.org/project/itsdangerous)|v1.1.0|07/03/20|eman amr |BSD-3-Clause|N/A|
 |[psycopg2](https://pypi.org/project/psycopg2)|v2.8.5|07/03/20|eman amr |BSD-3-Clause-Attribution|N/A|
